@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GoogleLoginProvider,AuthService} from 'angular-6-social-login';
 import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     }
     this.authService.signIn(socialPlateformProvider).then(
       (userData)=>{
-        // console.log(socialPlateform+"signed in: "+JSON.stringify(userData));
+         console.log(socialPlateform+"signed in: "+JSON.stringify(userData));
+         localStorage.setItem("Identity",userData.email);
               this.router.navigate(['chat']);
       }
     );

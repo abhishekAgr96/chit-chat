@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from '../../node_modules/rxjs';
 import { map } from 'rxjs/operators';
-import { MapOperator } from '../../node_modules/rxjs/internal/operators/map';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +10,7 @@ export class AuthService {
   
   serviceId:string="IS64138c65e8e24b6e808ea57de4bbc8e1";
   chennalList:any;
+  identity:string=localStorage.getItem("Identity");
   httpOptions={
    headers : new HttpHeaders({ 
     'Content-Type' :'application/x-www-form-urlencoded',
@@ -39,7 +40,7 @@ export class AuthService {
     return  this.httpClient.post("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Roles","FriendlyName=Rohit&Type=deployment&Permission=createChannel",this.httpOptions); 
   }
   myChannelId:string="CH2e8a3e90caf3440aa3bfa672a0d4a483";
-  identity:string="abhishek.agrawal@kelltontech.com";
+  
   joinChannel(channelId):Observable<any>{
     // this.myChannelId=channelId;
     return this.httpClient.post("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Channels/"+channelId+"/Members","ChannelSid="+channelId+"&Identity="+this.identity+"&ServiceSid="+this.serviceId,this.httpOptions); 

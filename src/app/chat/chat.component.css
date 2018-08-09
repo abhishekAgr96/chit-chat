@@ -1,0 +1,35 @@
+.left{
+    width:30%;
+    float: left;
+}
+.right{
+    width: 60%;
+    float: right;
+    padding-left: 5%;
+    padding-right: 5%;
+    overflow: scroll;
+}
+.my{
+    background-color: rgb(240, 54, 54);
+    color:white;
+    width: 80%;
+    float: right;
+    text-align: right;
+    border-radius: 15% 0% 0% 15%;
+    margin-top: 2%; 
+    margin-right: 15%
+}
+.your{
+    background-color: aquamarine;
+    width: 80%;
+    float:left;
+    border-radius: 0% 15% 15% 0%;
+    margin-top: 2%;
+    margin-left: 5%; 
+
+}
+.msg{
+    width: 65%;
+    margin-left: 12%;
+    margin-top: 3%
+}

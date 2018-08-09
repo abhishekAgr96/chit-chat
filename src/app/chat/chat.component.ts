@@ -26,13 +26,13 @@ export class ChatComponent implements OnInit {
   arrayLen;
   searchChannel(){
     this.authService.searchChannel().subscribe(res=>{
-      console.log("RES value"+(res.channels[1].unique_name));
-      console.log("len"+res.channels.length);
+    //  console.log("RES value"+(res.channels[1].unique_name));
+     // console.log("len"+res.channels.length);
       for(let index=0;index<res.channels.length;index++){
-          console.log("array "+(res.channels[index].sid));     
+     //     console.log("array "+(res.channels[index].sid));     
            this.channelArray.push(res.channels[index].unique_name)
-           console.log("channel array: "+ this.channelArray);
-      console.log("channel name: "+this.channel);
+       //    console.log("channel array: "+ this.channelArray);
+    //  console.log("channel name: "+this.channel);
        this.arrayLen=this.channelArray.length;
       for(let index=0;index<this.arrayLen;index++){
        // console.log("in array: "+this.channelArray[index]+"    index  "+index);
@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit {
           break;
         }
         else{
-        console.log("not found");
+     //   console.log("not found");
         this.foundChannel="channel not found";
         }
       }
@@ -85,25 +85,30 @@ export class ChatComponent implements OnInit {
   myMessage:string;
   sendMessage(){
     this.authService.sendMessage(this.myMessage).subscribe(res=>{
-      console.log(res);
+      console.log(res.from);
     },
   err=>{
     console.log(err);
   })
   }
-  allMessages={};
+  allMessages=[];
+  roleIdentity=this.authService.identity;
   totalMessages:number;
+  
   getAllMessages(){
     this.authService.getAllMessages().subscribe(res=>{
-      this.allMessages=res.messages;  
+      // this.allMessages=res.messages;  
     //   console.log(res.messages[1].body);
-    //  this.totalMessages= res.messages.length;
+       this.totalMessages= res.messages.length;
     //  console.log("total   "+this.totalMessages);
-    //  for(let index=1;index<this.totalMessages;index++){
+      for(let index=0;index<this.totalMessages;index++){
        
     //    console.log("msg ",index+" is    "+res.messages[index].body);
-    //    this.allMessages+=res.messages[index].body+"\n";
-    //  }
+    if(res.messages[index].from==this.roleIdentity)
+        this.allMessages[index]={msg:res.messages[index].body,sender:true} 
+      else
+      this.allMessages[index]={msg:res.messages[index].body,sender:false} 
+      }
     //   // this.allMessages=res.messages.body;
     },
   err=>{
