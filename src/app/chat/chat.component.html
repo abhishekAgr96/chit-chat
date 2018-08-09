@@ -1,0 +1,32 @@
+<p>
+  chat works!
+</p>
+<button (click)="authenticate()">Authenticate</button>
+<div class="header"></div>
+<div class="left">
+  <input type="text" placeholder="Search channel" [(ngModel)]="channel"><span (click)="searchChannel()">find</span>
+  <p>{{foundChannel}}</p><span (click)="joinChannel()">Join</span><br/>
+  <input type="text" placeholder="Your Chennel Name" [(ngModel)]="newChannel"> <span (click)="addChannel()">+</span>
+  <p><u>Your channels</u></p>
+
+  <p (click)="addRole()">Add Role</p>
+
+</div>
+<div class="right">
+
+  <div class="chat">
+    <ul *ngFor="let message of allMessages">
+      <li>{{message.body}}</li>
+    </ul>
+
+  </div>
+  <div class="message">
+    <div class="messageField">
+      <div class="msgSend">
+        <input type="text" [(ngModel)]="myMessage">
+        <button (click)="sendMessage()">send</button>
+      </div>
+    </div>  
+  </div>
+
+</div>
