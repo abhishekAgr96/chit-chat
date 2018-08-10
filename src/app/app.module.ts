@@ -10,6 +10,8 @@ import { ChatComponent } from './chat/chat.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
+import {AuthService} from './auth.service'
+
 
 export function getAuthServiceConfig(){
   let config=new AuthServiceConfig([{
@@ -26,7 +28,12 @@ const routes : Routes=[
   },
   {
     path:'chat',
-    component:ChatComponent
+    component:ChatComponent,
+    canActivate:[AuthService]
+  },
+  {
+    path:'**',
+    component:LoginComponent
   }
 ]
 
@@ -45,6 +52,7 @@ const routes : Routes=[
     RouterModule.forRoot(routes)
   ],
   providers: [
+    AuthService,
     {
       provide:AuthServiceConfig,
       useFactory:getAuthServiceConfig

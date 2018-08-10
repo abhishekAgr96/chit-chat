@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from '../../node_modules/rxjs';
 import { map } from 'rxjs/operators';
+import { CanActivate, Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,15 @@ export class AuthService {
     "Authorization" : "Basic QUM1OTkxNzYxNGI5MjUxYzFmMDc1NjM2MzhjMDEzODZhODowMjA2Y2M0ZmZhMDQ2YWZmZDhlYmU4NjEwODQwZjY2MQ=="
   })}
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private router:Router) { }
+
+  canActivate() {   
+    if(this.identity!="")
+    return true;
+    else{
+     this.router.navigate(['']) 
+    return false;
+  }}
   
   setJson():Observable<any>{
    

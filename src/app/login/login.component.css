@@ -1,0 +1,17 @@
+@import url('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+.google{
+    background-color: brown;
+    
+}
+.facebook{
+    background-color: dodgerblue;
+}
+button{
+    width:30%;
+    margin: 1%;
+ 
+}
+.center{
+    padding:10%;
+    margin-left: 10%;
+}

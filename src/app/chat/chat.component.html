@@ -1,10 +1,10 @@
 
-
-<div class="header"></div>
+<div class="main">
+  <div class="header"></div>
 <div class="left">
     <button (click)="authenticate()" disabled>Authenticate</button><br/>
-  <input type="text" placeholder="Search channel" [(ngModel)]="channel"><button (click)="searchChannel()">find</button><br/>
-  <span>{{foundChannel}}</span><span (click)="joinChannel()">|Join|</span><br/>
+  <input type="text" placeholder="Search channel" [(ngModel)]="channel"><button (click)="searchChannel()">find</button><br/><br/>
+  <span>{{foundChannel}}</span><span (click)="joinChannel()">|Join|</span><br/><br/>
   <input type="text" placeholder="Your Chennel Name" [(ngModel)]="newChannel"> <span (click)="addChannel()">+</span>
   <p><u>Your channels</u></p>
 
@@ -29,5 +29,7 @@
       </div>
     </div>  
   </div>
+  
+</div>
 
 </div>
