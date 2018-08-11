@@ -11,7 +11,7 @@
     height:80%;
 }
 .my{
-    background-color: rgb(240, 54, 54);
+    background-color: rgba(245, 72, 78, 0.801);
     color:white;
     width: 80%;
     float: right;
@@ -19,6 +19,9 @@
     border-radius: 15% 0% 0% 15%;
     margin-top: 2%; 
     margin-right: 15%
+}
+.my p{
+    margin-left: 30%;   
 }
 .your{
     background-color: aquamarine;
@@ -36,9 +39,13 @@
 }
 .chat{
     overflow-y: scroll;
-    height: 600px;
+    height: 550px;
     
 }
 .main{
     max-height: 700px;
+}
+.senderName{
+    margin:0px;
+    width: 20px;
 }

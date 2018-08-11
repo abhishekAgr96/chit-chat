@@ -11,6 +11,7 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import {AuthService} from './auth.service'
+import {TwilioService} from './twilio.service'
 
 
 export function getAuthServiceConfig(){
@@ -53,6 +54,7 @@ const routes : Routes=[
   ],
   providers: [
     AuthService,
+    TwilioService,
     {
       provide:AuthServiceConfig,
       useFactory:getAuthServiceConfig

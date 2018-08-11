@@ -2,20 +2,27 @@
 <div class="main">
   <div class="header"></div>
 <div class="left">
-    <button (click)="authenticate()" disabled>Authenticate</button><br/>
+    <!-- <button (click)="authenticate()" disabled>Authenticate</button><br/> -->
+  <p>Status:{{status}}</p>
   <input type="text" placeholder="Search channel" [(ngModel)]="channel"><button (click)="searchChannel()">find</button><br/><br/>
-  <span>{{foundChannel}}</span><span (click)="joinChannel()">|Join|</span><br/><br/>
+  <span (click)="joinChannel()">{{foundChannel}}</span><br/><br/>
   <input type="text" placeholder="Your Chennel Name" [(ngModel)]="newChannel"> <span (click)="addChannel()">+</span>
   <p><u>Your channels</u></p>
+  <ul *ngFor="let channelId of myChannelList" >
+    <span (click)="getAllMessages(channelId.id)">{{channelId.name}}</span>
+</ul>
+<!-- [(ngModel)]="channelId" -->
 
   <p (click)="addRole()" >Add Role</p>
 
 </div>
 <div class="right">
-
+  <div class="channelName">
+    <h3>Channel Name: {{myChannelName}}</h3>
+  </div>
   <div class="chat">
     <ul *ngFor="let message of allMessages" >
-        <span [ngClass]="message.sender?'my':'your'">{{message.msg}}</span>
+        <div [ngClass]="message.sender?'my':'your'">{{message.msg}}<p class="senderName">{{message.senderId}}</p></div>
     </ul>
       
       
