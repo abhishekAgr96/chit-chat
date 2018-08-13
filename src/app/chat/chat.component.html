@@ -1,42 +1,50 @@
-
 <div class="main">
   <div class="header"></div>
-<div class="left">
+  <div class="left">
     <!-- <button (click)="authenticate()" disabled>Authenticate</button><br/> -->
-  <p>Status:{{status}}</p>
-  <input type="text" placeholder="Search channel" [(ngModel)]="channel"><button (click)="searchChannel()">find</button><br/><br/>
-  <span (click)="joinChannel()">{{foundChannel}}</span><br/><br/>
-  <input type="text" placeholder="Your Chennel Name" [(ngModel)]="newChannel"> <span (click)="addChannel()">+</span>
-  <p><u>Your channels</u></p>
-  <ul *ngFor="let channelId of myChannelList" >
-    <span (click)="getAllMessages(channelId.id)">{{channelId.name}}</span>
-</ul>
-<!-- [(ngModel)]="channelId" -->
+    <p>Status:{{status}}</p>
+    <input type="text" placeholder="Search Channel" [(ngModel)]="channel" (keyup)="searchChannel()">
+    <br/>
+    <br/>
+    <div class="foundChannel">
+      <span *ngFor="let foundChannel of foundChannelList"></span>
+    </div>
+    <span (click)="joinChannel()">{{foundChannel}}</span>
+    <br/>
+    <br/>
+    <input type="text" placeholder="Your Chennel Name" [(ngModel)]="newChannel">
+    <span (click)="addChannel()">
+      <i class="fas fa-plus-circle"></i>
+    </span>
+    <div class="channelList">
+      <h4>
+        <u>Your channels</u>
+      </h4>
+        <p *ngFor="let channelId of myChannelList"(click)="getAllMessages(channelId.id)">{{channelId.name}}</p>
+    </div>
+    <!-- [(ngModel)]="channelId" -->
 
-  <p (click)="addRole()" >Add Role</p>
-
-</div>
-<div class="right">
-  <div class="channelName">
-    <h3>Channel Name: {{myChannelName}}</h3>
-  </div>
-  <div class="chat">
-    <ul *ngFor="let message of allMessages" >
-        <div [ngClass]="message.sender?'my':'your'">{{message.msg}}<p class="senderName">{{message.senderId}}</p></div>
-    </ul>
-      
-      
+    <!-- <p (click)="addRole()">Add Role</p> -->
 
   </div>
-  <div class="message">
-    <div class="messageField">
-      <div class="msgSend">
-        <input type="text" [(ngModel)]="myMessage" class="msg">
-        <button (click)="sendMessage()">send</button>
-      </div>
-    </div>  
+  <div class="right">
+    <div class="channelName">
+      <h3>Channel Name: {{myChannelName}}</h3>
+    </div>
+    <div class="chat">
+      <ul *ngFor="let message of allMessages">
+        <div [ngClass]="message.sender?'my':'your'">{{message.msg}}
+          <p class="senderName">{{message.senderId}}</p>
+        </div>
+      </ul>
+    </div>
+    
+        <div class="msgSend">
+          <!-- <input type="file" accept="image/*" /> -->
+          <input type="text" [(ngModel)]="myMessage" class="msg" (keydown.enter)="sendMessage()">
+          <i ng-disabled="myMessage" (click)="sendMessage()" class="fas fa-paper-plane"></i>
+        </div>
+    
   </div>
-  
-</div>
 
 </div>

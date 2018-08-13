@@ -34,15 +34,15 @@ export class TwilioService {
     return  this.httpClient.get("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Channels",this.httpOptions).pipe(map(data=>data)); 
   }
 
-  addRole():Observable<any>{
+  // addRole():Observable<any>{
     
-    return  this.httpClient.post("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Roles","FriendlyName=Rohit&Type=deployment&Permission=createChannel",this.httpOptions); 
-  }
+  //   return  this.httpClient.post("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Roles","FriendlyName=Rohit&Type=deployment&Permission=createChannel",this.httpOptions); 
+  // }
   myChannelId:string="CH2e8a3e90caf3440aa3bfa672a0d4a483";
   
   joinChannel(channelId):Observable<any>{
     // this.myChannelId=channelId;
-    return this.httpClient.post("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Channels/"+channelId+"/Members","ChannelSid="+channelId+"&Identity="+this.identity+"&ServiceSid="+this.serviceId,this.httpOptions); 
+    return this.httpClient.post("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Channels/"+channelId+"/Members","ChannelSid="+channelId+"&Identity="+localStorage.getItem("Identity")+"&ServiceSid="+this.serviceId,this.httpOptions); 
   }
   getMembersOfChannel(myChannelId):Observable<any>{
     return this.httpClient.get("https://chat.twilio.com/v2/Services/"+this.serviceId+"/Channels/"+myChannelId+"/Members",this.httpOptions);

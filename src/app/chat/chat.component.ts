@@ -11,7 +11,7 @@ import { element } from '../../../node_modules/@angular/core/src/render3/instruc
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private twilioService: TwilioService) { }
+  constructor(private twilioService: TwilioService,) { }
   authenticate() {
     this.twilioService.setJson().subscribe(response => {
       console.log(response)
@@ -28,11 +28,13 @@ export class ChatComponent implements OnInit {
   arrayLen;
   status = " WellCome";
   searchChannel() {
+    console.log("function called");
+
     this.twilioService.searchChannel().subscribe(res => {
       //  console.log("RES value"+(res.channels[1].unique_name));
       // console.log("len"+res.channels.length);
       for (let index = 0; index < res.channels.length; index++) {
-        console.log("array " + (res.channels[index].sid));
+        //console.log("array " + (res.channels[index].sid));
         this.channelArray.push(res.channels[index].unique_name)
         //    console.log("channel array: "+ this.channelArray);
         //  console.log("channel name: "+this.channel);
@@ -40,20 +42,22 @@ export class ChatComponent implements OnInit {
         for (let index = 0; index < this.arrayLen; index++) {
           // console.log("in array: "+this.channelArray[index]+"    index  "+index);
           if (this.channelArray[index] == this.channel) {
-            console.log("channel fopund");
+      //      console.log("channel found");
+            this.status="Channel found"
             this.foundChannel = this.channel;
             this.foundChannelId = res.channels[index].sid;
             break;
           }
           else {
             //   console.log("not found");
-            this.foundChannel = "channel not found";
+            this.foundChannel = "";
+            this.status="No Channel Found";
           }
         }
       }
     },
       err => {
-        console.log();
+   //     console.log();
       })
   }
   channelSid: string;
@@ -64,7 +68,7 @@ export class ChatComponent implements OnInit {
   totalChannels = [];
   listJoinedChannel() {
     this.twilioService.searchChannel().subscribe(res => {
-      console.log('res', res)
+     // console.log('res', res)
       this.totalChannels = res.channels;
       for (let index = 0; index < res.channels.length; index++) {
         this.channelSid = res.channels[index].sid;
@@ -92,29 +96,8 @@ export class ChatComponent implements OnInit {
     })
   }
   myChannelList: Array<{name : string, id: string}> = [];
-  test(cSid){
-    console.log("in test : ", cSid)
-  }
-  seperateChannelSid(res) {
-    console.log(this.totalChannels, "this.totalChannerls");
-    
-    res.members.forEach((element1) => {
-      //       console.log(element.identity);
-
-      if (this.roleIdentity == element1.identity) {
-        // console.log(element1.channel_sid)
-        // this.myChannelList.push(element1);
-        // console.log(this.myChannelList)
-        this.totalChannels.forEach((elemet) => {
-          if(element1.channel_sid == elemet.sid){
-            this.myChannelList.push({name : elemet.unique_name, id : elemet.sid})
-          }
-        })
-        this.test(element1.channel_sid)
-      }
-
-    });
-  }
+  
+  
   userListInChannel(channelList) {
     this.myChannelList = [];
     //  console.log("total channels="+(channelList));
@@ -145,7 +128,29 @@ export class ChatComponent implements OnInit {
     // })
     // this.getChannelName(this.myChannelList);
   }
-  myChannelName: string = "";
+
+  seperateChannelSid(res) {
+    //   console.log(this.totalChannels, "this.totalChannerls");
+       
+       res.members.forEach((element1) => {
+         //       console.log(element.identity);
+   
+         if (this.roleIdentity == element1.identity) {
+           // console.log(element1.channel_sid)
+           // this.myChannelList.push(element1);
+           // console.log(this.myChannelList)
+           this.totalChannels.forEach((elemet) => {
+             if(element1.channel_sid == elemet.sid){
+               this.myChannelList.push({name : elemet.unique_name, id : elemet.sid})
+             }
+           })
+     
+         }
+   
+       });
+     }
+
+  myChannelName: string ="";
   getChannelName(myChannelId) {
     //   console.log("getChannelName called",myChannelId);
 
@@ -165,6 +170,7 @@ export class ChatComponent implements OnInit {
       console.log("chennal created " + JSON.stringify(res.sid));
     },
       err => {
+        this.status = "Channel Already Exist";
         console.log(err);
       });
     //  console.log("authenticated"+JSON.stringify(this.twilioService.setJson()));
@@ -173,24 +179,29 @@ export class ChatComponent implements OnInit {
     console.log(this.foundChannelId);
     this.twilioService.joinChannel(this.foundChannelId).subscribe(res => {
       console.log(res);
+      this.status="Channel Joined"
+      localStorage.setItem("lastChannelId",this.foundChannelId)
+      this.getAllMessages(this.foundChannelId);
     }, err => {
       console.log(err);
+      this.status="Channel Already Joined";
     })
   }
-  addRole() {
-    this.twilioService.addRole().subscribe(res => {
-      console.log(res);
-    },
-      err => {
-        console.log(err);
-      })
-  }
+  // addRole() {
+  //   this.twilioService.addRole().subscribe(res => {
+  //     console.log(res);
+  //   },
+  //     err => {
+  //       console.log(err);
+  //     })
+  // }
   myMessage: string;
   myChannel: string;
   sendMessage() {
     this.twilioService.sendMessage(this.myMessage).subscribe(res => {
-      console.log("msg sent");
-      console.log(res.from);
+      // console.log("msg sent");
+      // console.log(res.from);
+      this.myMessage="";
     },
       err => {
         console.log(err);
@@ -228,8 +239,7 @@ export class ChatComponent implements OnInit {
   }
   ngOnInit() {
     this.listJoinedChannel();
-    this.getAllMessages("");
-
+    
+    this.getAllMessages(localStorage.getItem("lastChannelId")); 
   }
-
 }

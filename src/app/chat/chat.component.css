@@ -1,35 +1,56 @@
+@import url('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
 .left{
-    width:30%;
+    width:22%;
+    height: 100%;
+    background-color: rgb(252, 249, 247);
     float: left;
+    /* padding-left:2%;  */
+    
+    min-height: 600px;
+}
+.left input{
+    width: 90%;
+    border-radius:10% 
 }
 .right{
-    width: 60%;
+    width: 67%;
+    background-color: rgb(252, 249, 247);
     float: right;
     padding-left: 5%;
     padding-right: 5%;
     /* overflow: scroll; */
     height:80%;
 }
+chat{
+    
+}
+/* .channelName{
+    margin-left: 10%;
+} */
+
 .my{
     background-color: rgba(245, 72, 78, 0.801);
-    color:white;
-    width: 80%;
     float: right;
+    color:white;
+    width: 80%;   
     text-align: right;
     border-radius: 15% 0% 0% 15%;
     margin-top: 2%; 
-    margin-right: 15%
+    margin-right: 18%;
+   
 }
 .my p{
-    margin-left: 30%;   
+    margin-left: 63%;  
+
 }
-.your{
+
+.your{ 
     background-color: aquamarine;
     width: 80%;
     float:left;
     border-radius: 0% 15% 15% 0%;
     margin-top: 2%;
-    margin-left: 5%; 
+    margin-left: 2%; 
 
 }
 .msg{
@@ -39,13 +60,24 @@
 }
 .chat{
     overflow-y: scroll;
-    height: 550px;
+    height: 500px;
     
 }
 .main{
-    max-height: 700px;
+    max-height: 650px;
+    overflow: hidden;
 }
 .senderName{
     margin:0px;
     width: 20px;
+}
+.channelList{
+    text-align: center;
+    margin-top: 20%;
+}
+.channelList p, .fas{
+    cursor: pointer;
+}
+.msg{
+    margin-left: 10%;
 }
