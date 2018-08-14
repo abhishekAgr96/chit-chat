@@ -2,14 +2,15 @@
   <div class="header"></div>
   <div class="left">
     <!-- <button (click)="authenticate()" disabled>Authenticate</button><br/> -->
-    <p>Status:{{status}}</p>
+    <p class="status">{{status}}</p>
     <input type="text" placeholder="Search Channel" [(ngModel)]="channel" (keyup)="searchChannel()">
     <br/>
     <br/>
     <div class="foundChannel">
-      <span *ngFor="let foundChannel of foundChannelList"></span>
+      <!-- <span *ngFor="let foundChannel of foundChannelList"></span> -->
+   <span (click)="joinChannel()" style="text-align: center"> {{foundChannel}}</span>
     </div>
-    <span (click)="joinChannel()">{{foundChannel}}</span>
+    <!-- <span *ngFor="let myChannel of foundChannel" (click)="joinChannel()" > {{myChannel}} </span> -->
     <br/>
     <br/>
     <input type="text" placeholder="Your Chennel Name" [(ngModel)]="newChannel">
@@ -29,12 +30,12 @@
   </div>
   <div class="right">
     <div class="channelName">
-      <h3>Channel Name: {{myChannelName}}</h3>
+      <h3>Channel Name: {{myChannelName}} <button (click)="signout()">SignOut <i class="fas fa-sign-out-alt"></i></button></h3>
     </div>
     <div class="chat">
       <ul *ngFor="let message of allMessages">
         <div [ngClass]="message.sender?'my':'your'">{{message.msg}}
-          <p class="senderName">{{message.senderId}}</p>
+          <p style="width: 230px;" class="senderName">{{message.senderId}}</p>
         </div>
       </ul>
     </div>
